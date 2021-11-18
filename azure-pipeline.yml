@@ -1,13 +1,7 @@
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
-  batch: true 
-  branches:
-    include:
-      - master
-
-# Don't run against PRs
-pr: none
+- main
 
 stages :
 
@@ -25,7 +19,7 @@ stages :
           - task: AzureCLI@2
             displayName: 'Deploy Bicep Configuration'
             inputs:
-              azureSubscription: 'tamopstf'
+              azureSubscription: 'Bicep-RG'
               scriptType: bash
               scriptLocation: inlineScript
               addSpnToEnvironment: true
