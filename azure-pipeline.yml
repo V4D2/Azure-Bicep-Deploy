@@ -19,7 +19,7 @@ stages :
           - task: AzureCLI@2
             displayName: 'Deploy Bicep Configuration'
             inputs:
-              azureSubscription: 'Bicep-RG'
+              azureSubscription: 'Azure-SC' //Refer Service Connection
               scriptType: bash
               scriptLocation: inlineScript
               addSpnToEnvironment: true
