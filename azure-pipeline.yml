@@ -1,7 +1,10 @@
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
-- main
+- none
+
+pool:
+  vmImage: 'ubuntu-latest'
 
 stages :
 
@@ -9,20 +12,16 @@ stages :
     jobs:
       - job: "BicepConfigure"
         steps:
- 
-          - task: Bash@3
-            displayName: 'Bicep Build'
-            inputs:
-              targetType: inline
-              script: |
-                az bicep build --file $(System.DefaultWorkingDirectory)/BicepFiles/main.bicep
+                
           - task: AzureCLI@2
             displayName: 'Deploy Bicep Configuration'
             inputs:
-              azureSubscription: 'Azure-SC' //Refer Service Connection
-              scriptType: bash
-              scriptLocation: inlineScript
-              addSpnToEnvironment: true
+              azureSubscription: 'Visual Studio Enterprise Subscription(88c4a907-c2bd-4880-b22f-79e78fe73484)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
               inlineScript: |
                 #!/bin/bash
-                az deployment sub create --location WestUS --template-file main.bicep
+                az group create -l westus -n bicep-rg 
+                az bicep build --file $(System.DefaultWorkingDirectory)/BicepFiles/main.bicep
+                az deployment group create -f $(System.DefaultWorkingDirectory)/BicepFiles/main.json -g bicep-rg
+              addSpnToEnvironment: true
