@@ -23,5 +23,5 @@ stages :
                 #!/bin/bash
                 az group create -l westus -n bicep-rg 
                 az bicep build --file $(System.DefaultWorkingDirectory)/BicepFiles/main.bicep
-                az deployment group create -f $(System.DefaultWorkingDirectory)/BicepFiles/main.json -g bicep-rg
+                az deployment sub create --l WestUS -f AzurePolicy.bicep
               addSpnToEnvironment: true
