@@ -15,7 +15,7 @@ pipeline {
 		       '''
 		       }
 		     
-		       sh "az deployment sub create --l WestUS -f ./BicepFiles/AzurePolicy.bicep"
+		       sh "az deployment sub create --l WestUS -f ./BicepFiles/main.bicep"
 		       sh 'az logout'
 		     
          		}
