@@ -9,13 +9,11 @@ pipeline {
 	 
 		 steps {
 		      
-		      sh '''
-			   az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
-			   az account set -s $AZURE_SUBSCRIPTION_ID
-		       '''
+		      azureCLI commands: [[exportVariablesString: '', script: 'az login']], principalCredentialId: 'Jenkins-sp'
+			
 		       }
 		     
-		       sh "az deployment sub create --l WestUS -f ./BicepFiles/main.bicep"
+		       azureCLI commands: [[exportVariablesString: '', script: 'az deployment sub create --l WestUS -f ./BicepFiles/main.bicep"']], principalCredentialId: 'Jenkins-sp'
 		       sh 'az logout'
 		     
          		}
