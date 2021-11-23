@@ -11,7 +11,7 @@ pipeline {
 		       }
 		     
 		       azureCLI commands: [[exportVariablesString: '', script: 'az deployment sub create --l WestUS -f ./BicepFiles/main.bicep"']], principalCredentialId: 'Jenkins-sp'
-		       sh 'az logout'
+		       az logout
 		     
          		}
      		}
