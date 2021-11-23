@@ -1,11 +1,8 @@
 pipeline {
   agent any
     stages {
-	    stage('Build') {
-         sh 'mvn clean package'
-         }
-	 
-	     stage('Publish') {
+	    	 
+	     stage('Deploy') {
 	 
 		 steps {
 		      
